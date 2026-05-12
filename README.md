@@ -1,95 +1,21 @@
-# React + TypeScript + Vite
+# Reporte Ejecutivo de Métricas — Palvi
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Decisiones técnicas
+- **Framework y lenguaje**: React + TypeScript, por tipado fuerte y escalabilidad.  
+- **UI**: Material UI, para acelerar el desarrollo con componentes listos y consistentes.  
+- **Gráficos**: Recharts, simple y declarativo para mostrar tendencias de métricas.  
+- **Estado y datos**: Hook personalizado `useMetrics` que carga el dataset seleccionado desde `metrics.json`. Se encapsula la lógica en un contexto (`DatasetContext`) para que cualquier componente pueda acceder al dataset activo.  
+- **Arquitectura**:  
+  - `DatasetSelector`: permite cambiar entre A/B/C/D.  
+  - `Dashboard`: renderiza métricas clave en tarjetas.  
+  - `MetricCard`: decide color y tendencia según `direction` y valores diarios.  
+  - `utils/metrics.ts`: funciones puras para cálculos derivados (ej. win rate, tendencias).  
+- **Estructura de carpetas**: modular (`components`, `pages`, `hooks`, `utils`, `types`, `context`, `theme`) para claridad y mantenibilidad.  
+- **Decisión de alcance**: se priorizó mostrar métricas actuales y tendencias inmediatas, porque el jefe de ventas tiene solo 5 minutos para decidir dónde poner foco.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-/src
-  /assets
-    └── metrics.json        # Archivo de datos (puede estar en public/ si lo cargas vía fetch)
-  /components
-    ├── DatasetSelector.tsx # Dropdown para elegir dataset
-    ├── MetricCard.tsx      # Tarjeta ejecutiva para cada métrica
-    ├── Dashboard.tsx       # Vista principal con grid de métricas
-    └── Chart.tsx           # Componente reutilizable para gráficos
-  /pages
-    └── Home.tsx            # Página principal que usa Dashboard + DatasetSelector
-  /hooks
-    └── useMetrics.ts       # Hook para cargar y cachear metrics.json (React Query)
-  /utils
-    └── metrics.ts          # Funciones de cálculo (tendencias, win rate, funnel, etc.)
-  /types
-    └── metrics.d.ts        # Definiciones de tipos (Dataset, MetricMeta, DayMetrics)
-  /context
-    └── DatasetContext.tsx  # Contexto global para dataset seleccionado
-  /theme
-    └── muiTheme.ts         # Configuración de Material UI (colores, tipografía)
-
+## Quedaron pendientes
+- **Filtros de rango de fechas**: permitir ver última semana, mes o trimestre.
+- **Alertas automáticas**: notificaciones cuando una métrica crítica empeora significativamente (ej. tiempo de respuesta sube 20%).  
+- **Exportación**: opción de exportar reporte a PDF/Excel para compartir.  
+- **Visualizaciones avanzadas**: gráficos comparativos entre datasets y evolución histórica más detallada.  
+- **Mejoras de estilo**: Mejorar apariencia y dejar responsivo.

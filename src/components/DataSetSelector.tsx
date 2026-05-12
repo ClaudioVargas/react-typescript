@@ -4,8 +4,8 @@ import { useDataset } from "../context/DatasetContext";
 
 const DatasetSelector: React.FC = () => {
   const { datasetKey, setDatasetKey } = useDataset();
+  // Dejar datasets dinamicao
   const datasets = ["A", "B", "C", "D"];
-
   return (
     <Select value={datasetKey} onChange={e => setDatasetKey(e.target.value)}>
       {datasets.map(ds => (

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import { MetricsFile, Dataset } from "../types/metrics";
 import metricsData from "../assets/metrics.json";
 
 export function useMetrics(datasetKey: string): Dataset | null {

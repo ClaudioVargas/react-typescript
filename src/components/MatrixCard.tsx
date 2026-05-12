@@ -15,6 +15,7 @@ const MetricCard: React.FC<Props> = ({ meta, value, trend }) => {
 
   return (
     <Card>
+      {/* <h1>3</h1> */}
       <CardContent>
         <Typography variant="h6">{meta.label}</Typography>
         <Typography variant="h4" style={{ color }}>

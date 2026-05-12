@@ -7,7 +7,9 @@ import MetricCard from "./MatrixCard";
 
 const Dashboard: React.FC = () => {
   const { datasetKey } = useDataset();
+  console.log("datasetKey", datasetKey)
   const dataset = useMetrics(datasetKey);
+  console.log("dataset", dataset)
 
   if (!dataset) return <div>Loading...</div>;
 

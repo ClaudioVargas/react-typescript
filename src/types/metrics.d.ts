@@ -1,16 +1,3 @@
-interface MetricMeta {
-  key: string;
-  label: string;
-  unit: string;
-  direction: "higher_is_better" | "lower_is_better";
-  description: string;
-}
-
-interface DayMetrics {
-  date: string;
-  metrics: Record<string, number | null>;
-}
-
 interface Dataset {
   metadata: {
     start_date: string;
@@ -19,6 +6,19 @@ interface Dataset {
     metrics: MetricMeta[];
   };
   days: DayMetrics[];
+}
+
+interface DayMetrics {
+  date: string;
+  metrics: Record<string, number | null>;
+}
+
+interface MetricMeta {
+  key: string;
+  label: string;
+  unit: string;
+  direction: "higher_is_better" | "lower_is_better";
+  description: string;
 }
 
 type MetricsFile = Record<string, Dataset>;
