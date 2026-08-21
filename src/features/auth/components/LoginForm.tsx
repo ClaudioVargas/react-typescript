@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Input from '../../../components/common/Input';
 import Button from '../../../components/common/Button';
-import { LoginRequest } from '../types';
+import { type LoginRequest } from '../types';
 import { useAuth } from '../../../hooks/useAuth';
 
 export const LoginForm: React.FC = () => {
@@ -11,7 +11,7 @@ export const LoginForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     setLoading(true);

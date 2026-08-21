@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { getToken, clearToken } from '../features/auth/services/token.service';
 
-const api = axios.create({ baseURL: process.env.REACT_APP_API_URL || '' });
+const api = axios.create({ baseURL: import.meta.env.VITE_API_BASE || '' });
 
 // Attach JWT to outgoing requests
 api.interceptors.request.use((config) => {
+  console.log("import.meta.env.VITE_API_BASE", import.meta.env.VITE_API_BASE)
   const token = getToken();
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;

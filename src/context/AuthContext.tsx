@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
-import { LoginRequest, LoginResponse } from '../features/auth/types';
+import type { LoginRequest, LoginResponse } from '../features/auth/types';
 import * as authService from '../features/auth/services/auth.service';
 import { saveToken, clearToken, getToken } from '../features/auth/services/token.service';
 
