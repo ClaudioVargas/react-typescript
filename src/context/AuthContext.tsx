@@ -21,8 +21,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (res?.token) {
       saveToken(res.token);
       setToken(res.token);
-      // set user if returned
-      if (res.user) setUser(res.user);
+      // set user if returned from login
+      if (res.user) {
+        setUser(res.user);
+      } else {
+        // otherwise try to fetch profile
+        try {
+          const profile = await authService.getProfile();
+          setUser(profile);
+        } catch (err) {
+          // ignore profile fetch error here
+        }
+      }
     }
   }, []);
 
@@ -39,9 +49,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   useEffect(() => {
-    // On mount, if token exists consider user authenticated (optional: validate token or fetch user)
-    const t = getToken();
-    if (t) setToken(t);
+    // On mount, if token exists, fetch profile to populate user
+    const init = async () => {
+      const t = getToken();
+      if (t) {
+        setToken(t);
+        try {
+          const profile = await authService.getProfile();
+          setUser(profile);
+        } catch (err: any) {
+          // If token invalid/expired, clear and redirect to login
+          if (err?.response?.status === 401) {
+            clearToken();
+            setToken(null);
+            setUser(null);
+            if (typeof window !== 'undefined') window.location.href = '/login';
+          }
+        }
+      }
+    };
+
+    init();
   }, []);
 
   return (

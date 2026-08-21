@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import { BrowserRouter, Link, Outlet, Route, Routes } from "react-router-dom";
 import DashboardCharts from "./pages/DashboardCharts";
 import { useMetrics } from "./hooks/useMetrics";
+import LoginPage from './pages/LoginPage';
+import PrivateRoute from './router/PrivateRoute';
 
 
 const sampleData = {
@@ -46,8 +48,10 @@ const App: React.FC = () => {
         <Link to="/">Inicio</Link>
         <Link to="/graficos">Graficos</Link>
       </nav>
-      <Routes  >
-        <Route element={<DataLayout />}>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+
+        <Route element={<PrivateRoute><DataLayout /></PrivateRoute>}>
           <Route path="/" element={<Home />} />
           <Route
             path="/graficos"

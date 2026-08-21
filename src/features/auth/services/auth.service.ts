@@ -15,3 +15,9 @@ export const logout = async () => {
   const res = await api.post('/api/auth/logout');
   return res.data;
 };
+
+export const getProfile = async () => {
+  // Assumes backend exposes GET /api/auth/me
+  const res = await api.get('/api/auth/me');
+  return res.data;
+};
