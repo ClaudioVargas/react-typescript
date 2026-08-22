@@ -5,7 +5,6 @@ const api = axios.create({ baseURL: import.meta.env.VITE_API_BASE || '' });
 
 // Attach JWT to outgoing requests
 api.interceptors.request.use((config) => {
-  console.log("import.meta.env.VITE_API_BASE", import.meta.env.VITE_API_BASE)
   const token = getToken();
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;

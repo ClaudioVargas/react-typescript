@@ -1,7 +1,10 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
 import type { LoginRequest, LoginResponse } from '../features/auth/types';
 import * as authService from '../features/auth/services/auth.service';
+import * as usuarioService from '../features/usuario/services/usuario.service';
 import { saveToken, clearToken, getToken } from '../features/auth/services/token.service';
+import { jwtDecode } from 'jwt-decode';
+
 
 interface AuthContextValue {
   user: any | null;
@@ -22,16 +25,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       saveToken(res.token);
       setToken(res.token);
       // set user if returned from login
-      if (res.user) {
-        setUser(res.user);
-      } else {
-        // otherwise try to fetch profile
+      console.log("res", res)
+      if (res.token) {
         try {
-          const profile = await authService.getProfile();
+          const usuarioDecodificado = jwtDecode(res.token) as any;
+          const profile = await usuarioService.get(usuarioDecodificado.id);
+          console.log("profile", profile)
           setUser(profile);
         } catch (err) {
+          console.error(err)
           // ignore profile fetch error here
         }
+
+      } else {
+        // otherwise try to fetch profile
       }
     }
   }, []);
@@ -55,7 +62,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (t) {
         setToken(t);
         try {
-          const profile = await authService.getProfile();
+          const usuarioDecodificado = jwtDecode(t) as any;
+          const profile = await usuarioService.get(usuarioDecodificado.id);
+          console.log("profile", profile)
+          // const profile = await authService.getProfile();
           setUser(profile);
         } catch (err: any) {
           // If token invalid/expired, clear and redirect to login
