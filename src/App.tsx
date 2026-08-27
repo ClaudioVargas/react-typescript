@@ -53,6 +53,8 @@ const App: React.FC = () => {
 
         <Route element={<PrivateRoute><DataLayout /></PrivateRoute>}>
           <Route path="/" element={<Home />} />
+          
+          <Route path="/tema" element={<Tema />} />
           <Route
             path="/graficos"
             element={<DashboardCharts data={sampleData} />}
