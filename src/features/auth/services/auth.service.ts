@@ -17,8 +17,8 @@ export const logout = async () => {
   return res.data;
 };
 
-export const getProfile = async () => {
+export const getProfile = async (id: string) => {
   // Assumes backend exposes GET /api/auth/me
-  const res = await api.get('/auth/me');
-  return res.data;
+  const res = await api.get(`/usuarios/${id}` );
+  return res.data.data;
 };

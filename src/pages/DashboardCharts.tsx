@@ -91,14 +91,11 @@ const DashboardCharts: React.FC = () => {
   // const DashboardCharts: React.FC<DashboardChartsProps> = ({ data }) => {
 
   const { datasetKey } = useDataset();
-  console.log("datasetKey", datasetKey)
   const dataset = useMetrics(datasetKey);
-  console.log("dataset", dataset)
 
 
   if (!dataset) return <div>Loading...</div>;
   let test = transformDataForCharts(dataset)
-  console.log("test", test)
 
 
   const { dates,
@@ -114,7 +111,6 @@ const DashboardCharts: React.FC = () => {
     supportTicketsOpened,
     supportAvgResolutionHours } = test.data;
 
-  console.log("dataset.days", dataset.days)
 
 
   return (

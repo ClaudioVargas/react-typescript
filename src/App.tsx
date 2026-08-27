@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Link, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { DatasetProvider } from './context/DatasetContext';
 import { useAuth } from './hooks/useAuth';
@@ -19,19 +19,61 @@ const sampleData = {
   tickets: [8, 12, 10],
 };
 
-const ProtectedLayout: React.FC = () => (
-  <>
-    <nav style={{ display: 'flex', gap: '1rem', marginBottom: '20px' }}>
-      <Link to="/">Inicio</Link>
-      <Link to="/temas">Temas</Link>
-      <Link to="/graficos">Graficos</Link>
-    </nav>
-    <Outlet />
-  </>
-);
+const ProtectedLayout: React.FC = () => {
+  console.log("*******************protected router*********************")
+
+  const { user, isAuthenticated, logout } = useAuth();
+
+
+  return (
+    <>
+      <nav
+        style={{
+          display: "flex",
+          justifyContent: "space-between", // separa izquierda y derecha
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        {/* Links a la izquierda */}
+        <div style={{ display: "flex", gap: "1rem" }}>
+          <Link to="/">Inicio</Link>
+          <Link to="/temas">Temas</Link>
+          <Link to="/graficos">Gráficos</Link>
+
+          {/* Ejemplo condicional por rol */}
+          {user?.roleId === 1 && <Link to="/graficos">Gráficos (Admin)</Link>}
+        </div>
+
+        {/* Botones a la derecha */}
+        {isAuthenticated && (
+          <div style={{ display: "flex", gap: "1rem" }}>
+            <Link to="/perfil">Perfil</Link>
+            <button
+              onClick={logout}
+              style={{
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                color: "#1f2937",
+                fontWeight: 600,
+              }}
+            >
+              Cerrar sesión
+            </button>
+          </div>
+        )}
+      </nav>
+      <Outlet />
+    </>
+  );
+}
 
 const PublicRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
+  console.log("*******************public router*********************")
   const { isAuthenticated, isLoading } = useAuth();
+
+
 
   if (isLoading) {
     return <div style={{ padding: 24 }}>Cargando...</div>;

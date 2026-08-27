@@ -1,6 +1,7 @@
 export interface TemaResponse {
   id: number;
-  nombre: string;
-  descripcion?: string;
-  color?: string;
+  name: string;
+  descripcion: string;
+  createdAt: string;
+  updatedAt?: string
 }
