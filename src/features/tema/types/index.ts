@@ -1,10 +1,6 @@
-import type { TemaResponse } from "../../usuario/types";
-
 export interface TemaResponse {
-
-  "id": number,
-  "nombre": string,
-  "email": string,
-  "temas": TemaResponse[]
-
+  id: number;
+  nombre: string;
+  descripcion?: string;
+  color?: string;
 }
