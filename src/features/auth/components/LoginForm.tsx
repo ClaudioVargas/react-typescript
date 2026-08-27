@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Input from '../../../components/common/Input';
 import Button from '../../../components/common/Button';
 import { type LoginRequest } from '../types';
 import { useAuth } from '../../../hooks/useAuth';
 
 export const LoginForm: React.FC = () => {
+  const navigate = useNavigate();
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,9 +17,10 @@ export const LoginForm: React.FC = () => {
     e.preventDefault();
     setError(null);
     setLoading(true);
+
     try {
       await login({ email, password } as LoginRequest);
-      // After login, AuthContext/axios interceptor will redirect or app will render protected routes
+      navigate('/temas', { replace: true });
     } catch (err: any) {
       setError(err?.response?.data?.message || err.message || 'Error al iniciar sesión');
     } finally {
