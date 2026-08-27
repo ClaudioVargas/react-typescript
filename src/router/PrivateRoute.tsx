@@ -1,17 +1,20 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { getToken } from '../features/auth/services/token.service';
+import { useAuth } from '../hooks/useAuth';
 
 interface Props {
-  children: JSX.Element;
+  children: React.ReactElement;
 }
 
-// For React Router v6 - protect routes by checking token presence
 export const PrivateRoute: React.FC<Props> = ({ children }) => {
   const location = useLocation();
-  const token = getToken();
+  const { isAuthenticated, isLoading } = useAuth();
 
-  if (!token) {
+  if (isLoading) {
+    return <div style={{ padding: 24 }}>Cargando...</div>;
+  }
+
+  if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
