@@ -2,6 +2,7 @@ import api from '../../../services/api';
 import type { LoginRequest, LoginResponse } from '../types';
 
 export const login = async (payload: LoginRequest): Promise<LoginResponse> => {
+  
   const res = await api.post('/auth/login', payload);
   return res.data;
 };

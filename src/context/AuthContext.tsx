@@ -4,6 +4,7 @@ import * as authService from '../features/auth/services/auth.service';
 import * as usuarioService from '../features/usuario/services/usuario.service';
 import { saveToken, clearToken, getToken } from '../features/auth/services/token.service';
 import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 
 interface AuthContextValue {
@@ -19,6 +20,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<any | null>(null);
   const [token, setToken] = useState<string | null>(() => getToken());
 
+  const navigate = useNavigate();
+
+
   const login = useCallback(async (payload: LoginRequest) => {
     const res: LoginResponse = await authService.login(payload);
     if (res?.token) {
@@ -32,6 +36,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           const profile = await usuarioService.get(usuarioDecodificado.id);
           console.log("profile", profile)
           setUser(profile);
+          navigate("/usuario"); // redirige a /dashboard
+
         } catch (err) {
           console.error(err)
           // ignore profile fetch error here
