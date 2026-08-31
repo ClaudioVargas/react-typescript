@@ -1,10 +1,8 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import type { LoginRequest, LoginResponse } from '../features/auth/types';
 import * as authService from '../features/auth/services/auth.service';
-import * as usuarioService from '../features/usuario/services/usuario.service';
 import { saveToken, clearToken, getToken } from '../features/auth/services/token.service';
 import { jwtDecode } from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
 
 
 interface AuthContextValue {

@@ -16,7 +16,7 @@ const Dashboard: React.FC = () => {
   return (
     <Grid container spacing={2}>
       {dataset.metadata.metrics.map(meta => (
-        <Grid item xs={12} sm={6} md={4} key={meta.key}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }} key={meta.key}>
           <MetricCard
             meta={meta}
             value={lastDay?.metrics[meta.key] ?? null}

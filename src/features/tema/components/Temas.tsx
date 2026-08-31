@@ -16,6 +16,7 @@ export const Temas: React.FC = () => {
     const fetchTemas = async () => {
       try {
         const response = await get();
+        console.log( response)
         setTemas(response);
       } catch (err: any) {
         setError(err?.message || "Error al cargar los temas");

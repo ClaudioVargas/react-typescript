@@ -101,13 +101,10 @@ const DashboardCharts: React.FC = () => {
   const { dates,
     traffic,
     leadsCreated,
-    leadsQualified,
     dealsCreated,
     dealsWon,
-    dealsLost,
     avgResponseTimeMin,
     avgDealCycleDays,
-    staleDeals,
     supportTicketsOpened,
     supportAvgResolutionHours } = test.data;
 

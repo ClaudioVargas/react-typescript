@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Link, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { DatasetProvider } from './context/DatasetContext';
 import { useAuth } from './hooks/useAuth';
@@ -7,17 +7,7 @@ import Home from './pages/Home';
 import DashboardCharts from './pages/DashboardCharts';
 import Temas from './features/tema/components/Temas';
 import PrivateRoute from './router/PrivateRoute';
-
-const sampleData = {
-  dates: ['Abr', 'May', 'Jun'],
-  traffic: [1200, 1800, 1600],
-  leads: [30, 45, 40],
-  dealsCreated: [10, 18, 15],
-  dealsWon: [3, 5, 4],
-  dealCycle: [35, 45, 40],
-  responseTime: [32, 30, 34],
-  tickets: [8, 12, 10],
-};
+import UsuarioPage from './features/usuario/components/UsuarioPage';
 
 const ProtectedLayout: React.FC = () => {
   console.log("*******************protected router*********************")
@@ -115,7 +105,8 @@ const App: React.FC = () => {
           <Route element={<ProtectedLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/temas" element={<Temas />} />
-            <Route path="/graficos" element={<DashboardCharts data={sampleData} />} />
+            <Route path="/perfil" element={<UsuarioPage />} />
+            <Route path="/graficos" element={<DashboardCharts />} />
           </Route>
         </Route>
 
