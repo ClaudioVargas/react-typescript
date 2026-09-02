@@ -4,17 +4,14 @@ import useAuth from "../../../hooks/useAuth";
 import UsuarioForm from "./UsuarioForm";
 import UserList from "./UserList";
 import UsuarioManager from "./UsuarioManager";
-// import { useAuth } from "../../hooks/useAuth";
-// import ProfileForm from "./ProfileForm";
-// import UserList from "./UserList";
-// import ProfileManager from "./ProfileManager";
 
 const UsuarioPage: React.FC = () => {
   const { user } = useAuth();
+  console.log("UsuarioPage", user)
   const [activeTab, setActiveTab] = useState<"profile" | "users" | "profiles">("profile");
 
   const isAdmin = user?.roleId === 1;
-
+  console.log("activeTab", activeTab)
   return (
     <div style={{ maxWidth: 1200, margin: "0 auto", padding: 24 }}>
       <h2>Gestión de Perfil</h2>

@@ -1,0 +1,27 @@
+# Dependencias y build
+node_modules
+dist
+dist-ssr
+*.local
+
+# Control de versiones
+.git
+.gitignore
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Entorno / IDE
+.env
+.env.*
+.vscode
+.idea
+.DS_Store
+
+# Docker (evitar copiar imágenes o build context innecesarios)
+Dockerfile
+.dockerignore

@@ -8,9 +8,9 @@ import DashboardCharts from './pages/DashboardCharts';
 import Temas from './features/tema/components/Temas';
 import PrivateRoute from './router/PrivateRoute';
 import UsuarioPage from './features/usuario/components/UsuarioPage';
+import DemoPage from './features/demo/components/DemoPage';
 
 const ProtectedLayout: React.FC = () => {
-  console.log("*******************protected router*********************")
 
   const { user, isAuthenticated, logout } = useAuth();
 
@@ -30,6 +30,7 @@ const ProtectedLayout: React.FC = () => {
           <Link to="/">Inicio</Link>
           <Link to="/temas">Temas</Link>
           <Link to="/graficos">Gráficos</Link>
+          <Link to="/demo">Demo</Link>
 
           {/* Ejemplo condicional por rol */}
           {user?.roleId === 1 && <Link to="/graficos">Gráficos (Admin)</Link>}
@@ -60,7 +61,6 @@ const ProtectedLayout: React.FC = () => {
 }
 
 const PublicRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
-  console.log("*******************public router*********************")
   const { isAuthenticated, isLoading } = useAuth();
 
 
@@ -94,6 +94,8 @@ const App: React.FC = () => {
             </PublicRoute>
           }
         />
+
+        <Route path="/demo" element={<DemoPage />} />
 
         <Route
           element={

@@ -41,18 +41,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [clearAuth]);
 
-  // const navigate = useNavigate();
-
-
   const login = useCallback(async (payload: LoginRequest) => {
     const res: LoginResponse = await authService.login(payload);
     if (!res?.token) {
       return;
     }
-
     saveToken(res.token);
     setToken(res.token);
-
     const decoded = jwtDecode(res.token) as any;
     try {
       if(decoded.id) {
@@ -76,13 +71,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     let isMounted = true;
-    let execute = false;
-
+    
     const init = async () => {
-      if(execute) return;
-      execute = true;
       const savedToken = getToken();
-      
       if (!savedToken) {
         if (isMounted) {
           setIsLoading(false);

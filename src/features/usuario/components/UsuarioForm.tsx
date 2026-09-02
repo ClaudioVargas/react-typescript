@@ -5,8 +5,7 @@ import { updateUsuario } from "../services/usuario.service";
 
 const UsuarioForm: React.FC<{ user: any }> = ({ user }) => {
 
-  console.log("user", user)
-  const [form, setForm] = useState({ id: user.id, nombre: user?.nombre || "", email: user?.email || "" });
+  const [form, setForm] = useState({ id: user.id, nombre: user?.name || "", email: user?.email || "" });
   if(user?.id) {
     console.error("No llego usuario")
   }

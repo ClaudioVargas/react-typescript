@@ -24,5 +24,5 @@ export const getProfile = async (id: string) =>
   run('getProfile', async () => {
     // Assumes backend exposes GET /api/auth/me
     const res = await api.get(`/usuarios/${id}`);
-    return res.data.data;
+    return res.data;
   });
