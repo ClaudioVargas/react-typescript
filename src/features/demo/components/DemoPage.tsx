@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Bell,
   Check,
@@ -147,6 +147,10 @@ export const DemoPage: React.FC = () => {
     warning: true,
     danger: true,
   });
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchTerm, statusFilter]);
 
   const filteredUsers = useMemo(() => {
     const query = searchTerm.trim().toLowerCase();

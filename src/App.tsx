@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Link, Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter, Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 import { DatasetProvider } from './context/DatasetContext';
 import { useAuth } from './hooks/useAuth';
 import LoginPage from './pages/LoginPage';
@@ -9,62 +9,59 @@ import Temas from './features/tema/components/Temas';
 import PrivateRoute from './router/PrivateRoute';
 import UsuarioPage from './features/usuario/components/UsuarioPage';
 import DemoPage from './features/demo/components/DemoPage';
+import Header from './components/layout/Header';
+import Sidebar from './components/layout/Sidebar';
+
+import { navItems, navSecondary } from './data/mock';
+
+
 
 const ProtectedLayout: React.FC = () => {
+  const navigate = useNavigate();
+  // const { user, isAuthenticated, logout } = useAuth();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeNav, setActiveNav] = useState('inicio');
 
-  const { user, isAuthenticated, logout } = useAuth();
-
+  const handleSidebarChange = (itemId: string): void => {
+    // Lógica aquí
+    setActiveNav(itemId);
+    // Obtener el item
+    const selectedItem = navItems.find(item => item.id === itemId);
+    if (selectedItem) {
+      // Navegar, cerrar, etc.
+      navigate(selectedItem.path);
+      setMobileOpen(false);
+    }
+  };
 
   return (
-    <>
-      <nav
-        style={{
-          display: "flex",
-          justifyContent: "space-between", // separa izquierda y derecha
-          alignItems: "center",
-          marginBottom: "20px",
-        }}
-      >
-        {/* Links a la izquierda */}
-        <div style={{ display: "flex", gap: "1rem" }}>
-          <Link to="/">Inicio</Link>
-          <Link to="/temas">Temas</Link>
-          <Link to="/graficos">Gráficos</Link>
-          <Link to="/demo">Demo</Link>
+    <div className="grid min-h-screen grid-cols-1 bg-slate-50 lg:grid-cols-4">
+      <Sidebar
+        items={navItems}
+        secondaryItems={navSecondary}
+        activeId={activeNav}
+        onChange={handleSidebarChange}
+        isOpen={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+      />
 
-          {/* Ejemplo condicional por rol */}
-          {user?.roleId === 1 && <Link to="/graficos">Gráficos (Admin)</Link>}
-        </div>
+      <main className="min-w-0 lg:col-span-3">
+        <Header
+          title="Panel de componentes"
+          subtitle="Maqueta demo: tipografía, formularios, tablas, modales y más"
+          onMenuClick={() => setMobileOpen(true)}
+        />
 
-        {/* Botones a la derecha */}
-        {isAuthenticated && (
-          <div style={{ display: "flex", gap: "1rem" }}>
-            <Link to="/perfil">Perfil</Link>
-            <button
-              onClick={logout}
-              style={{
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                color: "#1f2937",
-                fontWeight: 600,
-              }}
-            >
-              Cerrar sesión
-            </button>
-          </div>
-        )}
-      </nav>
-      <Outlet />
-    </>
+        <Outlet />
+
+      </main>
+
+    </div>
   );
 }
 
 const PublicRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
-
-
-
   if (isLoading) {
     return <div style={{ padding: 24 }}>Cargando...</div>;
   }
@@ -72,7 +69,6 @@ const PublicRoute: React.FC<{ children: React.ReactElement }> = ({ children }) =
   if (isAuthenticated) {
     return <Navigate to="/temas" replace />;
   }
-
   return children;
 };
 
@@ -83,6 +79,7 @@ const DataLayout: React.FC = () => (
 );
 
 const App: React.FC = () => {
+
   return (
     <BrowserRouter>
       <Routes>
