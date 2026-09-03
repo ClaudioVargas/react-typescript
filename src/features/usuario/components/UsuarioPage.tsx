@@ -13,8 +13,10 @@ const UsuarioPage: React.FC = () => {
   const isAdmin = user?.roleId === 1;
   if(isAdmin) {
     console.log("UsuarioPage editado 2 - Admin", user)
+  } else {
+
+    console.log("else activeTab", activeTab)
   }
-  console.log("activeTab", activeTab)
   return (
     <div style={{ maxWidth: 1200, margin: "0 auto", padding: 24 }}>
       <h2>Gestión de Perfil</h2>
