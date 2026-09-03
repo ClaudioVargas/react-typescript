@@ -25,11 +25,12 @@ docker login
 # para generar la imagen
 docker build -t react-typescript:v1 .  
 
-# para levantar local
-docker run -d -p 3000:80 --name react-app react-typescript:v1
-
 # generar tag para vincular con repositorios en hub.docker
 docker tag [IMAGEN_LOCAL] [TU_USUARIO]/[NOMBRE_REPOSITORIO]:[ETIQUETA]
 docker tag react-demo:v1.0 srdarus/react-demo:v1.0
 # subir
-docker push TU_USUARIO/react-typescript:v1
+docker push TU_USUARIO/TU_IMAGEN:VERSION
+
+
+# para levantar local
+docker run -d -p 3000:80 --name react-app react-typescript:v1.0

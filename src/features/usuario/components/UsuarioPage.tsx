@@ -7,7 +7,7 @@ import UsuarioManager from "./UsuarioManager";
 
 const UsuarioPage: React.FC = () => {
   const { user } = useAuth();
-  console.log("UsuarioPage", user)
+  console.log("UsuarioPage editado", user)
   const [activeTab, setActiveTab] = useState<"profile" | "users" | "profiles">("profile");
 
   const isAdmin = user?.roleId === 1;
