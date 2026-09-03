@@ -11,6 +11,9 @@ const UsuarioPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"profile" | "users" | "profiles">("profile");
 
   const isAdmin = user?.roleId === 1;
+  if(isAdmin) {
+    console.log("UsuarioPage editado 2 - Admin", user)
+  }
   console.log("activeTab", activeTab)
   return (
     <div style={{ maxWidth: 1200, margin: "0 auto", padding: 24 }}>
