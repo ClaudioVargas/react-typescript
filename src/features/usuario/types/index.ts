@@ -32,3 +32,6 @@ export interface AddTemaRequest {
   usuarioId: number;
   tema: string;
 }
+
+// Definición del tipo
+export type UsuarioTabType = "usuarioManager" | "usuarioList" | "role" | "test";

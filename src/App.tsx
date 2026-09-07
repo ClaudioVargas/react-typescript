@@ -51,9 +51,9 @@ const ProtectedLayout: React.FC = () => {
           subtitle="Maqueta demo: tipografía, formularios, tablas, modales y más"
           onMenuClick={() => setMobileOpen(true)}
         />
-
-        <Outlet />
-
+        <div className="space-y-10 p-6 md:p-8">
+          <Outlet />
+        </div>
       </main>
 
     </div>

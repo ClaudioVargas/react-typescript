@@ -1,7 +1,6 @@
 // ProfileForm.tsx
 import React, { useState } from "react";
 import { updateUsuario } from "../services/usuario.service";
-// import { updateProfile } from "../../features/usuario/services/usuario.service";
 
 const UsuarioForm: React.FC<{ user: any }> = ({ user }) => {
 

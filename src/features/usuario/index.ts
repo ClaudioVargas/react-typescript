@@ -11,3 +11,11 @@ export interface LoginResponse {
     email?: string;
   };
 }
+
+export interface Role {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  createdAt: string;
+  updatedAt: string;
+}

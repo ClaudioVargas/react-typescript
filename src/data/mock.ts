@@ -50,15 +50,19 @@ export const users: UserRow[] = [
 
 /** Pestañas del componente Tabs */
 export const tabs: TabItem[] = [
-  { id: 'resumen', label: 'Resumen' },
-  { id: 'actividad', label: 'Actividad' },
-  { id: 'configuracion', label: 'Configuración', icon: Boxes },
+  { id: 'usuarioManager', label: 'Mi Perfil' },
+  { id: 'usuarioList', label: 'Lista de usuarios' },
+  { id: 'role', label: 'Gestión de roles' },
+  { id: 'test', label: 'Test', icon: Boxes },
+  // { id: 'configuracion', label: 'Configuración', icon: Boxes },
 ];
+export type UsuarioTabType = "usuarioManager" | "usuarioList" | "role"| "test";
 
 /** Opciones para los selects de ejemplo */
 export const roleOptions = [
   { value: '', label: 'Selecciona un rol' },
   { value: 'admin', label: 'Administrador' },
   { value: 'editor', label: 'Editor' },
+  { value: 'invitado', label: 'Invitado' },
   { value: 'invitado', label: 'Invitado' },
 ];

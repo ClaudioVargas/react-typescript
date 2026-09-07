@@ -1,5 +1,6 @@
 export * from './layout/Avatar';
 export * from './layout/Badge';
+export * from './layout/TextInput';
 // export * from './components/Alert';
 // export * from './components/Button';
 // export * from './components/Card';
@@ -19,7 +20,6 @@ export * from './layout/Badge';
 // export * from './components/Tabs';
 // export * from './components/Text';
 // export * from './components/Textarea';
-// export * from './components/TextInput';
 // export * from './components/Toggle';
 // export * from './types';
 // export * from './data/mock';

@@ -26,3 +26,10 @@ export const getProfile = async (id: string) =>
     const res = await api.get(`/usuarios/${id}`);
     return res.data;
   });
+
+
+export const getRoles = async () =>
+  run('getRoles', async () => {
+    const res = await api.get('/role');
+    return res.data;
+  });

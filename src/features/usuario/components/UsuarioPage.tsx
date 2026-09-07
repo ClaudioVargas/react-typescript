@@ -1,42 +1,51 @@
-// ProfilePage.tsx
-import React, { useState } from "react";
+// UsuarioPage.tsx
+// Orquesta las pestañas: mantiene el estado compartido (activeTab, roles, user)
+// y delega el contenido de cada pestaña a componentes independientes.
+import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
-import UsuarioForm from "./UsuarioForm";
-import UserList from "./UserList";
-import UsuarioManager from "./UsuarioManager";
+import Section from "../../../components/layout/Section";
+import Card from "../../../components/layout/Card";
+import Tabs from "../../../components/layout/Tabs";
+import * as roleService from "../../../services/role.service";
+import type { Role } from "../../../services/role.types";
+import type { UsuarioTabType } from "../types";
+import { tabs as tabItems } from "../../../data/mock";
+import PerfilTab from "./PerfilTab";
+import UsuarioListTab from "./UsuarioListTab";
+import RoleTab from "./RoleTab";
+import TestTab from "./TestTab";
 
 const UsuarioPage: React.FC = () => {
   const { user } = useAuth();
-  console.log("UsuarioPage editado 2", user)
-  const [activeTab, setActiveTab] = useState<"profile" | "users" | "profiles">("profile");
+  const [roles, setRoles] = useState<Role[]>([]);
+  const [activeTab, setActiveTab] = useState<UsuarioTabType>("usuarioManager");
 
-  const isAdmin = user?.roleId === 1;
-  if(isAdmin) {
-    console.log("UsuarioPage editado 2 - Admin", user)
-  } else {
+  useEffect(() => {
+    const fetchRoles = async () => {
+      const data = await roleService.getRoles();
+      setRoles(data);
+    };
+    fetchRoles();
+  }, []);
 
-    console.log("else activeTab", activeTab)
-  }
+  // Fuente única de verdad para los roles: la actualiza RoleTab tras editar.
+  const reloadRoles = async () => {
+    const data = await roleService.getRoles();
+    setRoles(data);
+  };
+
   return (
-    <div style={{ maxWidth: 1200, margin: "0 auto", padding: 24 }}>
-      <h2>Gestión de Perfil</h2>
-
-      {/* Tabs */}
-      <div style={{ display: "flex", gap: 16, marginBottom: 24 }}>
-        <button onClick={() => setActiveTab("profile")}>Mi Perfil</button>
-        {isAdmin && (
-          <>
-            <button onClick={() => setActiveTab("users")}>Usuarios</button>
-            <button onClick={() => setActiveTab("profiles")}>Perfiles</button>
-          </>
-        )}
-      </div>
-
-      {/* Contenido dinámico */}
-      {activeTab === "profile" && <UsuarioForm user={user} />}
-      {isAdmin && activeTab === "users" && <UserList />}
-      {isAdmin && activeTab === "profiles" && <UsuarioManager />}
-    </div>
+    <Section title="Pestañas" description="Cambia el panel de contenido con estado local.">
+      <Card title="Contenido dinámico" bodyClassName="space-y-5">
+        <Tabs tabs={tabItems} activeId={activeTab} onChange={setActiveTab} />
+        <div className="rounded-2xl border border-slate-100 bg-slate-50/60 p-5">
+          {activeTab === "usuarioManager" && <PerfilTab user={user} roles={roles} />}
+          {activeTab === "usuarioList" && <UsuarioListTab />}
+          {activeTab === "role" && <RoleTab roles={roles} onRolesChange={reloadRoles} />}
+          {activeTab === "test" && <TestTab />}
+        </div>
+      </Card>
+    </Section>
   );
 };
 
