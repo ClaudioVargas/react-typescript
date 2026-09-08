@@ -6,6 +6,7 @@ import Card from "../../../components/layout/Card";
 import TextInput from "../../../components/layout/TextInput";
 import Select from "../../demo/components/Select";
 import Button from "../../../components/layout/Button";
+import { updateUsuario } from "../services/usuario.service";
 import type { Role } from "../../../services/role.types";
 
 interface PerfilTabProps {
@@ -15,7 +16,29 @@ interface PerfilTabProps {
 
 const PerfilTab: React.FC<PerfilTabProps> = ({ user, roles }) => {
   const [name, setName] = useState<string>(user?.name ?? "");
-  const [role, setRole] = useState<string>("");
+  const [role, setRole] = useState<string>(user.roleId?.toString() ?? null);
+  const [saving, setSaving] = useState(false);
+
+  const handleSave = async () => {
+    if (!user?.id) {
+      alert("No se pudo identificar al usuario");
+      return;
+    }
+    setSaving(true);
+    try {
+      await updateUsuario({
+        id: user.id,
+        name: name,
+        roleId: role ? parseInt(role) : 0,
+        // email: user?.email ?? "",
+      });
+      alert("Usuario actualizado correctamente");
+    } catch {
+      alert("Error al actualizar el usuario");
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
     <div className="space-y-4">
@@ -40,8 +63,13 @@ const PerfilTab: React.FC<PerfilTabProps> = ({ user, roles }) => {
               hint="Define los permisos del usuario."
             />
           </div>
-          <Button variant="primary" fullWidth>
-            Guardar cambios
+          <Button
+            variant="primary"
+            fullWidth
+            disabled={saving}
+            onClick={handleSave}
+          >
+            {saving ? "Guardando..." : "Guardar cambios"}
           </Button>
         </Card>
       </Section>

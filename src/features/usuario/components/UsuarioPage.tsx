@@ -18,7 +18,6 @@ import TestTab from "./TestTab";
 const UsuarioPage: React.FC = () => {
   const { user } = useAuth();
   const [roles, setRoles] = useState<Role[]>([]);
-  const [activeTab, setActiveTab] = useState<UsuarioTabType>("usuarioManager");
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -28,24 +27,13 @@ const UsuarioPage: React.FC = () => {
     fetchRoles();
   }, []);
 
-  // Fuente única de verdad para los roles: la actualiza RoleTab tras editar.
-  const reloadRoles = async () => {
-    const data = await roleService.getRoles();
-    setRoles(data);
-  };
+
 
   return (
-    <Section title="Pestañas" description="Cambia el panel de contenido con estado local.">
-      <Card title="Contenido dinámico" bodyClassName="space-y-5">
-        <Tabs tabs={tabItems} activeId={activeTab} onChange={setActiveTab} />
         <div className="rounded-2xl border border-slate-100 bg-slate-50/60 p-5">
-          {activeTab === "usuarioManager" && <PerfilTab user={user} roles={roles} />}
-          {activeTab === "usuarioList" && <UsuarioListTab />}
-          {activeTab === "role" && <RoleTab roles={roles} onRolesChange={reloadRoles} />}
-          {activeTab === "test" && <TestTab />}
+           <PerfilTab user={user} roles={roles} />
         </div>
-      </Card>
-    </Section>
+    
   );
 };
 

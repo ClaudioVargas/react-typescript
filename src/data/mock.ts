@@ -19,6 +19,7 @@ export const navItems: NavItem[] = [
   { id: 'graficos', label: 'Graficos', icon: FolderKanban, path: '/graficos' },
   { id: 'demo', label: 'demo', icon: LayoutDashboard, path: '/demo' },
   { id: 'perfil', label: 'Perfil', icon: UserPlus, path: '/perfil' },
+  { id: 'config', label: 'Configuración', icon: Settings , path: '/config' },
 ];
 
 
@@ -56,7 +57,15 @@ export const tabs: TabItem[] = [
   { id: 'test', label: 'Test', icon: Boxes },
   // { id: 'configuracion', label: 'Configuración', icon: Boxes },
 ];
-export type UsuarioTabType = "usuarioManager" | "usuarioList" | "role"| "test";
+/** Pestañas del componente Tabs */
+export const tabsConfig: TabItem[] = [
+  { id: 'usuarioList', label: 'Lista de usuarios' },
+  { id: 'role', label: 'Gestión de roles' },
+  { id: 'test', label: 'Test', icon: Boxes },
+  // { id: 'configuracion', label: 'Configuración', icon: Boxes },
+];
+// export type UsuarioTabType = "usuarioManager" | "usuarioList" | "role"| "test";
+// export type ConfigTabType = "usuarioManager" | "roleManager" |  "test";
 
 /** Opciones para los selects de ejemplo */
 export const roleOptions = [

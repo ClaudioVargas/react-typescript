@@ -4,7 +4,7 @@ import { updateUsuario } from "../services/usuario.service";
 
 const UsuarioForm: React.FC<{ user: any }> = ({ user }) => {
 
-  const [form, setForm] = useState({ id: user.id, nombre: user?.name || "", email: user?.email || "" });
+  const [form, setForm] = useState({ id: user.id, name: user?.name || "", roleId: 0 });
   if(user?.id) {
     console.error("No llego usuario")
   }
@@ -20,8 +20,8 @@ const UsuarioForm: React.FC<{ user: any }> = ({ user }) => {
 
   return (
     <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Nombre" />
-      <input name="email" value={form.email} onChange={handleChange} placeholder="Email" />
+      <input name="name" value={form.name} onChange={handleChange} placeholder="Nombre" />
+      <input name="roleId" value={form.roleId} onChange={handleChange} placeholder="ID del rol" />
       <button type="submit">Guardar cambios</button>
     </form>
   );

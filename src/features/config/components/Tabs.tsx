@@ -1,10 +1,9 @@
-import type { UsuarioTabType } from '../../features/usuario/types';
-import type { TabItem } from '../types';
+import type { ConfigTabType, TabItem } from '../types';
 
 interface TabsProps {
   tabs: TabItem[];
   activeId: string;
-  onChange: (id: UsuarioTabType ) => void;
+  onChange: (id: ConfigTabType ) => void;
 }
 
 export const Tabs: React.FC<TabsProps> = ({ tabs, activeId, onChange }) => (

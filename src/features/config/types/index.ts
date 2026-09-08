@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+
 export interface UsuarioResponse {
   "id": number,
   "name": string,
@@ -34,5 +36,19 @@ export interface AddTemaRequest {
   tema: string;
 }
 
+export interface Role {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 // Definición del tipo
-export type UsuarioTabType = "usuarioManager" | "usuarioList" | "role" | "test";
+export type ConfigTabType = "usuarioManager" | "roleManager" | "test";
+
+export interface TabItem {
+  id: ConfigTabType;
+  label: string;
+  icon?: LucideIcon;
+}

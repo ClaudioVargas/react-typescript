@@ -16,9 +16,9 @@ const UsuarioManager: React.FC = () => {
 
   const handleUpdate = async (id: number) => {
     await updateUsuario({
-      id, 
-      nombre,
-      email
+      id,
+      name: nombre,
+      roleId: 0
     });
     alert("Perfil actualizado");
   };

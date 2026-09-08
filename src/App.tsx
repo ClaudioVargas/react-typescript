@@ -13,6 +13,7 @@ import Header from './components/layout/Header';
 import Sidebar from './components/layout/Sidebar';
 
 import { navItems, navSecondary } from './data/mock';
+import ConfigPage from './features/config/components/ConfigPage';
 
 
 
@@ -105,6 +106,7 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/temas" element={<Temas />} />
             <Route path="/perfil" element={<UsuarioPage />} />
+            <Route path="/config" element={<ConfigPage />} />
             <Route path="/graficos" element={<DashboardCharts />} />
           </Route>
         </Route>
