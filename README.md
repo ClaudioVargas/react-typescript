@@ -38,7 +38,6 @@ src/
 | `/temas`        | Privado                                 | Vista de temas desde el backend |
 | `/perfil`       | Privado                                 | Mi perfil (roles via `role.service`) |
 | `/config`       | Privado                                 | Gestión de usuarios, roles y test |
-| `/graficos`     | Privado                                 | Dashboard de métricas |
 | `*`             | —                                       | Redirige a `/login` |
 
 ---

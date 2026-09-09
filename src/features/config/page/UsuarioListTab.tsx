@@ -26,7 +26,6 @@ const UsuarioListTab: React.FC = () => {
   const fetchUsers = async (): Promise<void> => {
     try {
       const data = await getUsuarios();
-      console.log("Usuarios cargados:", data);  
       setUsers(data);
     } catch {
       setError(true);
@@ -39,7 +38,6 @@ const UsuarioListTab: React.FC = () => {
 
     setDeletingId(id);
     try {
-      console.log("Eliminando usuario con ID:", id);
       await deleteUsuario(id);
       await fetchUsers();
       alert("Usuario eliminado correctamente");

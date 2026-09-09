@@ -15,9 +15,8 @@ import type { NavItem, StatItem, UserRow } from '../components/types';
 export const navItems: NavItem[] = [
   { id: 'inicio', label: 'Inicio', icon: BarChart3, path: '/inicio' },
   { id: 'tema', label: 'Temas', icon: Users, path: '/temas' },
-  { id: 'graficos', label: 'Graficos', icon: FolderKanban, path: '/graficos' },
-  { id: 'demo', label: 'demo', icon: LayoutDashboard, path: '/demo' },
   { id: 'perfil', label: 'Perfil', icon: UserPlus, path: '/perfil' },
+  // { id: 'demo', label: 'demo', icon: LayoutDashboard, path: '/demo' },
   // { id: 'config', label: 'Configuración', icon: Settings , path: '/config' },
 ];
 

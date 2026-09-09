@@ -104,7 +104,6 @@ const App: React.FC = () => {
             <Route path="/temas" element={<Temas />} />
             <Route path="/perfil" element={<UsuarioPage />} />
             <Route path="/config" element={<ConfigPage />} />
-            {/* <Route path="/graficos" element={<DashboardCharts />} /> */}
           </Route>
         </Route>
 
