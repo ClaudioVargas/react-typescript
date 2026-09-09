@@ -3,17 +3,9 @@
 // y delega el contenido de cada pestaña a componentes independientes.
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
-import Section from "../../../components/layout/Section";
-import Card from "../../../components/layout/Card";
-import Tabs from "../../../components/layout/Tabs";
 import * as roleService from "../../../services/role.service";
 import type { Role } from "../../../services/role.types";
-import type { UsuarioTabType } from "../types";
-import { tabs as tabItems } from "../../../data/mock";
 import PerfilTab from "./PerfilTab";
-import UsuarioListTab from "./UsuarioListTab";
-import RoleTab from "./RoleTab";
-import TestTab from "./TestTab";
 
 const UsuarioPage: React.FC = () => {
   const { user } = useAuth();

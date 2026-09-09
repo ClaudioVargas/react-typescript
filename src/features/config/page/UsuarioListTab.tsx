@@ -1,3 +1,4 @@
+// UsuarioListTab.tsx
 // Pestaña "Lista de usuarios": tabla de usuarios con acciones de ver (modal) y eliminar.
 import React, { useEffect, useState } from "react";
 import { Eye, Trash2 } from "lucide-react";

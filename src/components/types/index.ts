@@ -1,5 +1,4 @@
 import type { LucideIcon } from 'lucide-react';
-import type { UsuarioTabType } from '../../data/mock';
 
 /** Variantes de color para Badges y estados visuales */
 export type BadgeVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info';
@@ -40,7 +39,7 @@ export interface UserRow {
 
 /** Pestaña del componente Tabs */
 export interface TabItem {
-  id: UsuarioTabType;
+  id: string;
   label: string;
   icon?: LucideIcon;
 }

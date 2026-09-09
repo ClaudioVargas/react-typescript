@@ -4,7 +4,6 @@ import { DatasetProvider } from './context/DatasetContext';
 import { useAuth } from './hooks/useAuth';
 import LoginPage from './pages/LoginPage';
 import Home from './pages/Home';
-import DashboardCharts from './pages/DashboardCharts';
 import Temas from './features/tema/components/Temas';
 import PrivateRoute from './router/PrivateRoute';
 import UsuarioPage from './features/usuario/components/UsuarioPage';
@@ -13,7 +12,7 @@ import Header from './components/layout/Header';
 import Sidebar from './components/layout/Sidebar';
 
 import { navItems, navSecondary } from './data/mock';
-import ConfigPage from './features/config/components/ConfigPage';
+import ConfigPage from './features/config/page/ConfigPage';
 
 
 
@@ -24,12 +23,10 @@ const ProtectedLayout: React.FC = () => {
   const [activeNav, setActiveNav] = useState('inicio');
 
   const handleSidebarChange = (itemId: string): void => {
-    // Lógica aquí
     setActiveNav(itemId);
-    // Obtener el item
-    const selectedItem = navItems.find(item => item.id === itemId);
+    // Buscar el ítem tanto en la navegación principal como en la secundaria
+    const selectedItem = [...navItems, ...navSecondary].find(item => item.id === itemId);
     if (selectedItem) {
-      // Navegar, cerrar, etc.
       navigate(selectedItem.path);
       setMobileOpen(false);
     }
@@ -107,7 +104,7 @@ const App: React.FC = () => {
             <Route path="/temas" element={<Temas />} />
             <Route path="/perfil" element={<UsuarioPage />} />
             <Route path="/config" element={<ConfigPage />} />
-            <Route path="/graficos" element={<DashboardCharts />} />
+            {/* <Route path="/graficos" element={<DashboardCharts />} /> */}
           </Route>
         </Route>
 

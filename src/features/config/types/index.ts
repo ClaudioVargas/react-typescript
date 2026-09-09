@@ -44,6 +44,12 @@ export interface Role {
   updatedAt: string;
 }
 
+export interface TabItem {
+  id: ConfigTabType;
+  label: string;
+  icon?: LucideIcon;
+}
+
 // Definición del tipo
 export type ConfigTabType = "usuarioManager" | "roleManager" | "test";
 

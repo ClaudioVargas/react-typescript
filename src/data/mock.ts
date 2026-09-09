@@ -1,6 +1,5 @@
 import {
   BarChart3,
-  Boxes,
   FolderKanban,
   LayoutDashboard,
   Settings,
@@ -10,7 +9,7 @@ import {
   CircleDollarSign,
   ClipboardList,
 } from 'lucide-react';
-import type { NavItem, StatItem, TabItem, UserRow } from '../components/types';
+import type { NavItem, StatItem, UserRow } from '../components/types';
 
 /** Navegación de ejemplo para el Sidebar */
 export const navItems: NavItem[] = [
@@ -19,12 +18,12 @@ export const navItems: NavItem[] = [
   { id: 'graficos', label: 'Graficos', icon: FolderKanban, path: '/graficos' },
   { id: 'demo', label: 'demo', icon: LayoutDashboard, path: '/demo' },
   { id: 'perfil', label: 'Perfil', icon: UserPlus, path: '/perfil' },
-  { id: 'config', label: 'Configuración', icon: Settings , path: '/config' },
+  // { id: 'config', label: 'Configuración', icon: Settings , path: '/config' },
 ];
 
 
 export const navSecondary: NavItem[] = [
-  { id: 'config', label: 'Ajustes', icon: Settings, path: '/config' },
+  { id: 'config', label: 'Configuración', icon: Settings, path: '/config' },
 ];
 
 /** Tarjetas de estadística del dashboard */
@@ -48,24 +47,6 @@ export const users: UserRow[] = [
   { id: 9, name: 'Sofía Reyes', email: 'sofia.reyes@demo.com', role: 'Administradora', status: 'Activo', joinedAt: '15 Dic 2024' },
   { id: 10, name: 'Diego Herrera', email: 'diego.herrera@demo.com', role: 'Editor', status: 'Pendiente', joinedAt: '08 Ene 2025' },
 ];
-
-/** Pestañas del componente Tabs */
-export const tabs: TabItem[] = [
-  { id: 'usuarioManager', label: 'Mi Perfil' },
-  { id: 'usuarioList', label: 'Lista de usuarios' },
-  { id: 'role', label: 'Gestión de roles' },
-  { id: 'test', label: 'Test', icon: Boxes },
-  // { id: 'configuracion', label: 'Configuración', icon: Boxes },
-];
-/** Pestañas del componente Tabs */
-export const tabsConfig: TabItem[] = [
-  { id: 'usuarioList', label: 'Lista de usuarios' },
-  { id: 'role', label: 'Gestión de roles' },
-  { id: 'test', label: 'Test', icon: Boxes },
-  // { id: 'configuracion', label: 'Configuración', icon: Boxes },
-];
-// export type UsuarioTabType = "usuarioManager" | "usuarioList" | "role"| "test";
-// export type ConfigTabType = "usuarioManager" | "roleManager" |  "test";
 
 /** Opciones para los selects de ejemplo */
 export const roleOptions = [

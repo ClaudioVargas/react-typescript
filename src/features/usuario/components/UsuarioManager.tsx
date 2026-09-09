@@ -8,7 +8,8 @@ const UsuarioManager: React.FC = () => {
 
   const handleCreate = async () => {
     await createUsuario({
-      nombre, email,
+      name: nombre,
+      email: email,
       password: ""
     });
     alert("Perfil creado");
