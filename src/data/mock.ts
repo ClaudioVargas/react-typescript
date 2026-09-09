@@ -1,7 +1,5 @@
 import {
   BarChart3,
-  FolderKanban,
-  LayoutDashboard,
   Settings,
   Users,
   UserPlus,

@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 import { DatasetProvider } from './context/DatasetContext';
 import { useAuth } from './hooks/useAuth';
-import LoginPage from './pages/LoginPage';
-import Home from './pages/Home';
-import Temas from './features/tema/components/Temas';
 import PrivateRoute from './router/PrivateRoute';
-import UsuarioPage from './features/usuario/components/UsuarioPage';
-import DemoPage from './features/demo/components/DemoPage';
 import Header from './components/layout/Header';
 import Sidebar from './components/layout/Sidebar';
 
 import { navItems, navSecondary } from './data/mock';
-import ConfigPage from './features/config/page/ConfigPage';
+
+// ── Lazy loading (code splitting) ─────────────────────────────────────────────
+// Cada página se importa dinámicamente: Vite genera un chunk por ruta que solo
+// se descarga al visitarla por primera vez. React 19 cachea la carga, por lo que
+// las siguientes visitas no descargan nada. El shell (Sidebar/Header/contextos)
+// permanece en el bundle inicial.
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const Home = lazy(() => import('./pages/Home'));
+const Temas = lazy(() => import('./features/tema/components/Temas'));
+const UsuarioPage = lazy(() => import('./features/usuario/components/UsuarioPage'));
+const ConfigPage = lazy(() => import('./features/config/page/ConfigPage'));
+const DemoPage = lazy(() => import('./features/demo/components/DemoPage'));
+
+/** Indicador visible mientras se descarga el chunk de la página destino. */
+const PageFallback: React.FC = () => (
+  <div className="space-y-10 p-6 md:p-8">
+    <p className="text-sm text-slate-500">Cargando página…</p>
+  </div>
+);
 
 
 
@@ -50,7 +63,9 @@ const ProtectedLayout: React.FC = () => {
           onMenuClick={() => setMobileOpen(true)}
         />
         <div className="space-y-10 p-6 md:p-8">
-          <Outlet />
+          <Suspense fallback={<PageFallback />}>
+            <Outlet />
+          </Suspense>
         </div>
       </main>
 
@@ -84,13 +99,22 @@ const App: React.FC = () => {
         <Route
           path="/login"
           element={
-            <PublicRoute>
-              <LoginPage />
-            </PublicRoute>
+            <Suspense fallback={<div style={{ padding: 24 }}>Cargando...</div>}>
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            </Suspense>
           }
         />
 
-        <Route path="/demo" element={<DemoPage />} />
+        <Route
+          path="/demo"
+          element={
+            <Suspense fallback={<div style={{ padding: 24 }}>Cargando...</div>}>
+              <DemoPage />
+            </Suspense>
+          }
+        />
 
         <Route
           element={

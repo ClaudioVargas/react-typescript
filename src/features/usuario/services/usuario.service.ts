@@ -31,9 +31,10 @@ export const getUsuarioById = async (id: number): Promise<Usuario> =>
   });
 
 // DELETE /usuario/{id}
-export const deleteUsuario = async (id: number): Promise<void> =>
+export const deleteUsuario = async (id: number): Promise<boolean> =>
   run('deleteUsuario', async () => {
     const response = await api.delete(`/usuarios/${id}`);
+    return response.status === 200;
 
   }, { message: 'Usuario eliminado correctamente' });
 

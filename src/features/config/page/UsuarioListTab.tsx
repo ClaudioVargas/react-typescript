@@ -38,9 +38,13 @@ const UsuarioListTab: React.FC = () => {
 
     setDeletingId(id);
     try {
-      await deleteUsuario(id);
-      await fetchUsers();
-      alert("Usuario eliminado correctamente");
+      const response = await deleteUsuario(id);
+      if (response) {
+        await fetchUsers();
+        alert("Usuario eliminado correctamente");
+      } else {
+        console.error("Error al eliminar el usuario");
+      }
     } catch {
       alert("Error al eliminar el usuario");
     } finally {
