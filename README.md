@@ -115,14 +115,28 @@ src/
 
 # Pruebas ejecutadas y tests
 
-## Tests automatizados (unitarios / integración)
-**No existen tests automatizados** en el proyecto a la fecha (08/09/2026):
-- No hay framework configurado (sin Vitest, Jest, Testing Library, Playwright ni Cypress).
-- No hay archivos `*.test.*` ni `*.spec.*` en `src/`.
-- No hay script `test` en `package.json`.
-- Las pestañas `TestTab` de `features/usuario` y `features/config` son *placeholders* reservados (sin bloque dinámico asociado), no suites de pruebas.
+## Tests automatizados (unitarios / integración ligera)
+A partir del **22/09/2026** el proyecto cuenta con **Vitest 5 + React Testing Library + jsdom**:
 
-➡️ **Recomendación**: configurar Vitest + React Testing Library y cubrir por lo menos los servicios puros (`status.service`, `tema.service`, `usuario.service`) y el flujo de autenticación.
+- Framework: **Vitest** (configurado en `vite.config.ts`, entorno `jsdom`, pool `threads`).
+- **24 archivos de prueba** en `src/` (patrón `*.test.ts` / `*.test.tsx`), **145 casos de prueba** (todos en verde).
+
+| Cobertura | Archivos de test |
+|-----------|------------------|
+| Servicios puros | `status.service`, `token.service`, `isAdmin`, `metrics`, `data/mock`, `features/demo/data/mock` |
+| Servicios HTTP (axios mockeado) | `auth.service`, `tema.service`, `usuario.service` (usuario + config), `role.service`, `api` (interceptores) |
+| Componentes | `Button`, `Input`, `Avatar`, `Tabs`, `Pagination`, `Table`, `Modal`, `EmptyState`, `LoginForm`, `PrivateRoute` |
+| Contextos / hooks | `AuthContext`, `StatusContext`, `DatasetContext`, `useAuth`/`useStatus`/`useDataset` |
+
+### Ejecución
+```bash
+npm test          # ejecuta todas las pruebas una vez (CI-friendly)
+npm run test:watch # modo watch
+npm run test:ui    # interfaz web de Vitest
+```
+La suite completa tarda ~4 segundos y termina con exit code 0.
+
+> Nota técnica: el componente `<Navigate state={{ from: location }} />` de `react-router-dom` (en `PrivateRoute`) genera un objeto `state` nuevo en cada render que **provoca un bucle de navegación infinito al renderizarse dentro de un `MemoryRouter` en pruebas** (revienta el worker de Vitest en Windows). Por eso el test de `PrivateRoute` mockea `react-router-dom` y verifica la intención de redirección en lugar del mecanismo. Si el bucle se llegara a reproducir fuera de pruebas, convendría memoizar el objeto `state`.
 
 ## Validaciones de compilación y calidad (prueba ejecutada)
 Pruebas de consola ejecutadas el **08/09/2026** para confirmar el estado del repo:
