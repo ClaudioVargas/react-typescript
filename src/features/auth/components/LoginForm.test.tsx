@@ -7,8 +7,16 @@ const authMock = vi.hoisted(() => ({
   login: vi.fn(),
 }));
 
+const usuarioServiceMock = vi.hoisted(() => ({
+  createUsuario: vi.fn(),
+}));
+
 vi.mock('../../../hooks/useAuth', () => ({
   useAuth: () => authMock,
+}));
+
+vi.mock('../../config/services/usuario.service', () => ({
+  createUsuario: usuarioServiceMock.createUsuario,
 }));
 
 import { LoginForm } from './LoginForm';
@@ -22,6 +30,7 @@ const LocationProbe = () => {
 describe('LoginForm', () => {
   beforeEach(() => {
     authMock.login.mockReset();
+    usuarioServiceMock.createUsuario.mockReset();
   });
 
   const renderForm = () => render(
@@ -73,5 +82,39 @@ describe('LoginForm', () => {
 
     expect(screen.getByRole('button', { name: 'Cargando...' })).toBeDisabled();
     expect(screen.queryByRole('button', { name: 'Entrar' })).not.toBeInTheDocument();
+  });
+
+  const switchToRegister = async () => {
+    const user = userEvent.setup();
+    renderForm();
+    await user.click(screen.getByRole('button', { name: /crear cuenta/i }));
+    return user;
+  };
+
+  const fillAndSubmitRegister = async () => {
+    const user = await switchToRegister();
+    await user.type(screen.getByLabelText('Nombre'), 'Nuevo Usuario');
+    await user.type(screen.getByLabelText('Email'), 'nuevo@test.com');
+    await user.type(screen.getByLabelText('Contraseña'), '1234');
+    await user.click(screen.getByRole('button', { name: 'Crear cuenta' }));
+  };
+
+  it('crea una cuenta con createUsuario y vuelve al login con mensaje de éxito', async () => {
+    usuarioServiceMock.createUsuario.mockResolvedValue({ id: 1, name: 'Nuevo Usuario', email: 'nuevo@test.com' });
+    await fillAndSubmitRegister();
+
+    await waitFor(() =>
+      expect(usuarioServiceMock.createUsuario).toHaveBeenCalledWith({ name: 'Nuevo Usuario', email: 'nuevo@test.com', password: '1234' })
+    );
+    await screen.findByText('Cuenta creada correctamente. Ya puedes iniciar sesión.');
+    expect(screen.getByText('Iniciar sesión')).toBeInTheDocument();
+  });
+
+  it('muestra el mensaje de error del backend si falla la creación de la cuenta', async () => {
+    usuarioServiceMock.createUsuario.mockRejectedValue({ response: { data: { message: 'El email ya existe' } } });
+    await fillAndSubmitRegister();
+
+    await screen.findByText('El email ya existe');
+    expect(screen.getByRole('heading', { name: 'Crear cuenta' })).toBeInTheDocument();
   });
 });

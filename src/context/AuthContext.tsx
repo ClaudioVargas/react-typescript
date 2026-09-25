@@ -37,12 +37,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (err?.response?.status === 401) {
         clearAuth();
       }
+      if (err?.response?.status === 502) {
+        alert(1)
+      }
       throw err;
     }
   }, [clearAuth]);
 
   const login = useCallback(async (payload: LoginRequest) => {
     const res: LoginResponse = await authService.login(payload);
+    console.log({res})
     if (!res?.token) {
       return;
     }

@@ -111,7 +111,9 @@ const App: React.FC = () => {
           path="/demo"
           element={
             <Suspense fallback={<div style={{ padding: 24 }}>Cargando...</div>}>
-              <DemoPage />
+              <PrivateRoute>
+                <DemoPage />
+              </PrivateRoute>
             </Suspense>
           }
         />

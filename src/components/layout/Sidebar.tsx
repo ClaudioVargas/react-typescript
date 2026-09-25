@@ -1,8 +1,5 @@
 import { Boxes, X } from 'lucide-react';
-import { Avatar } from './Avatar';
-// import { Badge } from './Badge';
 import type { NavItem } from '../types';
-import Badge from '../../features/demo/components/Badge';
 
 interface SidebarProps {
   items: NavItem[];
@@ -95,16 +92,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </ul>
       </div>
 
-      {/* Usuario */}
-      <div className="mt-6 flex items-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-4">
-        <Avatar name="Laura Sánchez" status="online" />
-        <div className="min-w-0">
-          <p className="truncate text-sm font-medium text-slate-900">Laura Sánchez</p>
-          <Badge variant="primary" className="mt-0.5">
-            Administradora
-          </Badge>
-        </div>
-      </div>
     </nav>
   );
 
