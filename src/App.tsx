@@ -36,9 +36,11 @@ const ProtectedLayout: React.FC = () => {
   const [activeNav, setActiveNav] = useState('inicio');
 
   const handleSidebarChange = (itemId: string): void => {
+    console.log('Sidebar change:', itemId);
     setActiveNav(itemId);
     // Buscar el ítem tanto en la navegación principal como en la secundaria
     const selectedItem = [...navItems, ...navSecondary].find(item => item.id === itemId);
+    console.log({selectedItem});
     if (selectedItem) {
       navigate(selectedItem.path);
       setMobileOpen(false);

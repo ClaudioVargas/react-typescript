@@ -11,11 +11,9 @@ import type { NavItem, StatItem, UserRow } from '../components/types';
 
 /** Navegación de ejemplo para el Sidebar */
 export const navItems: NavItem[] = [
-  { id: 'inicio', label: 'Inicio', icon: BarChart3, path: '/inicio' },
+  { id: 'inicio', label: 'Inicio', icon: BarChart3, path: '/' },
   { id: 'tema', label: 'Temas', icon: Users, path: '/temas' },
   { id: 'perfil', label: 'Perfil', icon: UserPlus, path: '/perfil' },
-  // { id: 'demo', label: 'demo', icon: LayoutDashboard, path: '/demo' },
-  // { id: 'config', label: 'Configuración', icon: Settings , path: '/config' },
 ];
 
 

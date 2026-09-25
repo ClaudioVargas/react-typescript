@@ -36,7 +36,7 @@ export const LoginForm: React.FC = () => {
 
     try {
       await login({ email, password } as LoginRequest);
-      navigate('/temas', { replace: true });
+      navigate('/', { replace: true });
     } catch (err) {
       setError(getErrorMessage(err, 'Error al iniciar sesión'));
     } finally {
